@@ -1,6 +1,18 @@
 # food_recipe_app
 
-A new Flutter project.
+A Flutter app showing meal recipe and recommend healthy food using Spoonacular API.
+
+Features: Riverpod state management, Hive for local storage.
+ 
+<p align='left'>
+  <img src='ss_1.png' width=200 />
+  <img src='ss_2.png' width=200 />
+</>
+
+Todos:
+- Add custom theme.
+- Elaborate recipe screen.
+- Add feature-rich func.
 
 ## Getting Started
 
