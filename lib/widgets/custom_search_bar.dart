@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_recipe_app/pages/search_screen.dart';
+import 'package:food_recipe_app/pages/search_result_screen.dart';
 
 class CustomSearchBar extends StatelessWidget {
   final TextEditingController _controller = TextEditingController();
@@ -14,7 +14,7 @@ class CustomSearchBar extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
       decoration: BoxDecoration(
         color: Colors.white12,
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.3),
@@ -29,15 +29,15 @@ class CustomSearchBar extends StatelessWidget {
           const Icon(Icons.search, color: Colors.grey),
           const SizedBox(width: 10),
           Expanded(
-            child: TextField(
+            child: TextField(style: TextStyle(fontSize: 14, color:Colors.black87),
               controller: _controller,
               decoration: const InputDecoration(
-                hintText: "What ingredient you have today?",
+                hintText: "Search any recipes",
                 border: InputBorder.none,
               ),
               onSubmitted: (value) {
                 if(value.trim().isNotEmpty) {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => SearchScreen(value.trim()),));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => SearchResultScreen(value.trim()),));
                 }
               },
             ),

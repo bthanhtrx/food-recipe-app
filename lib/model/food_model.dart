@@ -1,3 +1,4 @@
+import 'package:food_recipe_app/model/recipe_model.dart';
 import 'package:hive/hive.dart';
 
 part 'food_model.g.dart';
@@ -32,4 +33,10 @@ class FoodModel {
         'image': image,
         'imageType': imageType,
       };
+
+  factory FoodModel.fromRecipeModel(RecipeModel recipe) => FoodModel(
+      id: recipe.id as int,
+      title: recipe.title,
+      image: recipe.image,
+      imageType: recipe.imageType);
 }

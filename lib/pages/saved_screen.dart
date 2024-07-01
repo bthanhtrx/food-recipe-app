@@ -41,7 +41,7 @@ class SavedScreen extends ConsumerWidget {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      RecipeScreen(recipe[index].id),
+                                      RecipeScreen(recipe[index]),
                                 )),
                             child: Card(
                               child: Row(
@@ -55,20 +55,22 @@ class SavedScreen extends ConsumerWidget {
                                       child: CachedNetworkImage(
                                         imageUrl: recipe[index].image,
                                         width: 100,
-                                        placeholder: (context, url) => CircularProgressIndicator(),
+                                        placeholder: (context, url) =>
+                                            CircularProgressIndicator(),
                                       ),
                                     ),
                                     const Gap(10),
                                     Expanded(
-                                      child: Text(
-                                        recipe[index].title,
-                                        maxLines: 3,
-                                        softWrap: true,
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
+                                      child: Text(recipe[index].title,
+                                          maxLines: 3,
+                                          softWrap: true,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall
+                                              ?.copyWith(
+fontSize: 14,
+                                                fontWeight: FontWeight.bold,
+                                              )),
                                     ),
                                   ]),
                             ),

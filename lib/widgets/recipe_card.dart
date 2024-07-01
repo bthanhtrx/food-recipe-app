@@ -36,7 +36,7 @@ class _RecipeCardState extends State<RecipeCard> {
                   widget.foodModel.title,
                   maxLines: 3,
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 14),
+                  style: Theme.of(context).textTheme.titleSmall,
                 )
               ],
             ),
@@ -45,11 +45,9 @@ class _RecipeCardState extends State<RecipeCard> {
                 right: 5,
                 child: Consumer(
                   builder: (context, ref, child) {
-                    if (ref
+                    _isFav =ref
                         .read(savedRecipeProvider)
-                        .contains(widget.foodModel)) {
-                      _isFav = true;
-                    }
+                        .contains(widget.foodModel);
                     return GestureDetector(
                         onTap: () {
                           setState(() {
@@ -60,7 +58,7 @@ class _RecipeCardState extends State<RecipeCard> {
                                 : ref
                                     .read(savedRecipeProvider.notifier)
                                     .add(widget.foodModel);
-                            _isFav = !_isFav;
+
                           });
                         },
                         child: Container(

@@ -17,6 +17,7 @@ class FoodRecipeApp extends ConsumerWidget {
       theme: AppTheme.lightThemeMode,
       darkTheme: AppTheme.darkThemeMode,
       home: const HomePage(),
+
     );
   }
 }
