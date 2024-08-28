@@ -1,7 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:food_recipe_app/api/api_provider.dart';
+import 'package:food_recipe_app/datasource/api_provider.dart';
+import 'package:food_recipe_app/api/recipe_params.dart';
 import 'package:food_recipe_app/model/food_model.dart';
 import 'package:food_recipe_app/pages/recipe_screen.dart';
 import 'package:food_recipe_app/providers/app_provider.dart';
@@ -10,15 +11,16 @@ import 'package:food_recipe_app/widgets/category_badge.dart';
 import 'package:food_recipe_app/widgets/custom_search_bar.dart';
 import 'package:food_recipe_app/widgets/recipe_card.dart';
 import 'package:gap/gap.dart';
-import 'package:hive/hive.dart';
 
 class HomeScreen extends ConsumerWidget {
   HomeScreen({super.key});
 
-  final Map<String, dynamic>params = {};
+  final RecipeParams params = const RecipeParams(query: '', cuisine: '', servings: 1, diet: '', intolerances: '');
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final TextEditingController searchController = TextEditingController();
+
     final foodFuture = ref.watch(foodProvider(params));
     final randomRecipe = ref.watch(randomRecipeProvider);
     return Scaffold(
@@ -31,7 +33,7 @@ class HomeScreen extends ConsumerWidget {
             children: [
               Gap(20),
               Text(
-                'Hi ${ref.watch(userNameProvider)}! 👋',
+                'Hi ${ref.watch(currentUser)?.displayName ?? ref.watch(userNameProvider)}! 👋',
                 style: Theme.of(context).textTheme.titleSmall,
               ),
               Text(
@@ -41,7 +43,7 @@ class HomeScreen extends ConsumerWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Expanded(child: CustomSearchBar()),
+                  Expanded(child: CustomSearchBar(hintText: 'Search any recipes', controller: searchController,)),
                   GestureDetector(
                     onTap: () => showDialog(
                       builder: (context) => const AdvancedSearchDialog(),
@@ -59,7 +61,7 @@ class HomeScreen extends ConsumerWidget {
               ),
               Text('Categories', style: Theme.of(context).textTheme.titleLarge),
               Gap(10),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CategoryBadge(

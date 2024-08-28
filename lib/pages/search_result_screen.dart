@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:food_recipe_app/api/api_provider.dart';
-import 'package:food_recipe_app/database/recipe_notifier.dart';
+import 'package:food_recipe_app/datasource/api_provider.dart';
+import 'package:food_recipe_app/api/recipe_params.dart';
+import 'package:food_recipe_app/datasource/recipe_notifier.dart';
 import 'package:food_recipe_app/pages/recipe_screen.dart';
 import 'package:food_recipe_app/providers/app_provider.dart';
 import 'package:gap/gap.dart';
@@ -9,22 +10,17 @@ import 'package:gap/gap.dart';
 class SearchResultScreen extends ConsumerWidget {
   final String query;
 
-  // final String cuisines;
-  // final String diet;
-  // final String intolerances;
-  // final String servings;
-
   const SearchResultScreen(this.query, {super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final search = ref.watch(foodProvider({
-      'query': query,
-      'cuisine': ref.read(cuisinesProvider),
-      'servings': ref.read(servingsProvider),
-      'diet': ref.read(isVeganProvider) ? 'vegan' : '',
-      'intolerances': ref.read(isGlutenFreeProvider) ? 'gluten' : '',
-    }));
+    final search = ref.watch(foodProvider(RecipeParams(
+      query: query,
+      cuisine: ref.read(cuisinesProvider),
+      servings: ref.read(servingsProvider),
+      diet: ref.read(isVeganProvider) ? 'vegan' : '',
+      intolerances: ref.read(isGlutenFreeProvider) ? 'gluten' : '')
+    ));
 
     return Scaffold(
       body: Padding(

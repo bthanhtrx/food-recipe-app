@@ -1,12 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:food_recipe_app/api/api_provider.dart';
+import 'package:food_recipe_app/datasource/api_provider.dart';
 import 'package:food_recipe_app/core/common/constant.dart';
-import 'package:food_recipe_app/database/recipe_notifier.dart';
+import 'package:food_recipe_app/datasource/hive_db.dart';
+import 'package:food_recipe_app/datasource/recipe_notifier.dart';
 import 'package:food_recipe_app/model/food_model.dart';
 import 'package:food_recipe_app/model/recipe_model.dart';
 import 'package:food_recipe_app/providers/app_provider.dart';
+import 'package:food_recipe_app/repository/recipe_repository.dart';
 import 'package:food_recipe_app/widgets/info_badge.dart';
 import 'package:gap/gap.dart';
 import 'package:read_more_text/read_more_text.dart';
@@ -19,7 +21,11 @@ class RecipeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final recipeFuture = ref.watch(recipeProvider(foodModel.id));
+    final recipeDetail =
+        ref.watch(recipeRepositoryProvider).getRecipeDetail(foodModel.id);
+    print('recipeDetail: $recipeDetail');
     bool isSaved = ref.watch(savedRecipeProvider).contains(foodModel);
+
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
 
@@ -32,7 +38,6 @@ class RecipeScreen extends ConsumerWidget {
             data: (data) {
               final ingredients = data.extendedIngredients;
               final instructions = data.analyzedInstructions;
-
               return Expanded(
                 child: SingleChildScrollView(
                   child: Column(
@@ -67,7 +72,8 @@ class RecipeScreen extends ConsumerWidget {
                                   .createShader(
                                 Rect.fromLTRB(
                                     0, 0, bounds.width, bounds.height),
-                              ),blendMode: BlendMode.dstIn,
+                              ),
+                              blendMode: BlendMode.dstIn,
                               child: CachedNetworkImage(
                                 height: screenHeight * .4,
                                 width: screenWidth,
@@ -129,9 +135,9 @@ class RecipeScreen extends ConsumerWidget {
                               data.title,
                               style: Theme.of(context).textTheme.titleLarge,
                             ),
-                            Row(children: [
-
-                            ],),
+                            Row(
+                              children: [],
+                            ),
                             Gap(20),
                             ReadMoreText(
                               data.summary.replaceAll(RegExp(r'<[^>]*>'), ''),
@@ -171,8 +177,20 @@ class RecipeScreen extends ConsumerWidget {
                 ),
               );
             },
-            error: (error, stackTrace) =>
-                Text('error: ${error} \n ${stackTrace}'),
+            error: (error, stackTrace) {
+              debugPrint('error: ${error} \n ${stackTrace}');
+              return Column(
+                children: [
+                  Text('Error occurred. Try again later.'),
+                  Gap(10),
+                  ElevatedButton(
+                      onPressed: () {
+                        ref.invalidate(recipeProvider(foodModel.id));
+                      },
+                      child: Text('Retry'))
+                ],
+              );
+            },
             loading: () => CircularProgressIndicator(),
           ),
         ],
@@ -247,11 +265,8 @@ class RecipeScreen extends ConsumerWidget {
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (context, index) => Text(
-                  '${instructions[0].steps[index].number}. ${instructions[0].steps[index].step}',
-                  style: TextStyle(
-                    color: Colors.black87,
-                  ),
-                ),
+                '${instructions[0].steps[index].number}. ${instructions[0].steps[index].step}',
+                style: Theme.of(context).textTheme.titleSmall),
             separatorBuilder: (context, index) => Gap(5),
             itemCount: instructions[0].steps.length)
       ],

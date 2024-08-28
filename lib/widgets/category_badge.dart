@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:food_recipe_app/api/api_provider.dart';
+import 'package:food_recipe_app/datasource/api_provider.dart';
 import 'package:food_recipe_app/pages/search_result_screen.dart';
 import 'package:gap/gap.dart';
 

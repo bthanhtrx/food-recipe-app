@@ -1,6 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:food_recipe_app/core/common/shared_pref.dart';
+
+final currentUserStream = StreamProvider((ref) {
+  return FirebaseAuth.instance.authStateChanges();
+},);
+
+final currentUser = Provider((ref) {
+  return FirebaseAuth.instance.currentUser;
+},);
 
 final appThemeProvider = StateProvider(
       (ref) {

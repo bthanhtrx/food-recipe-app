@@ -1,8 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:food_recipe_app/database/recipe_notifier.dart';
+import 'package:food_recipe_app/api/firebase_auth_service.dart';
+import 'package:food_recipe_app/api/firestore_service.dart';
+import 'package:food_recipe_app/datasource/recipe_notifier.dart';
 import 'package:food_recipe_app/model/food_model.dart';
+import 'package:food_recipe_app/providers/app_provider.dart';
+import 'package:gap/gap.dart';
 
 class RecipeCard extends StatefulWidget {
   final FoodModel foodModel;
@@ -32,6 +37,7 @@ class _RecipeCardState extends State<RecipeCard> {
                     child: CachedNetworkImage(
                       imageUrl: widget.foodModel.image,
                     )),
+                Gap(10),
                 Text(
                   widget.foodModel.title,
                   maxLines: 3,
@@ -45,20 +51,27 @@ class _RecipeCardState extends State<RecipeCard> {
                 right: 5,
                 child: Consumer(
                   builder: (context, ref, child) {
-                    _isFav =ref
-                        .read(savedRecipeProvider)
-                        .contains(widget.foodModel);
+                    print(ref.read(savedRecipeProvider));
+                    _isFav = ref.read(savedRecipeProvider).any(
+                          (element) => element.id == widget.foodModel.id,
+                        );
+                    // .contains(widget.foodModel);
+                    // print('item: ${widget.foodModel.title} - $_isFav');
                     return GestureDetector(
                         onTap: () {
                           setState(() {
-                            _isFav
-                                ? ref
-                                    .read(savedRecipeProvider.notifier)
-                                    .delete(widget.foodModel)
-                                : ref
-                                    .read(savedRecipeProvider.notifier)
-                                    .add(widget.foodModel);
+                            if (_isFav) {
+                              ref
+                                  .read(savedRecipeProvider.notifier)
+                                  .delete(widget.foodModel);
 
+
+                            } else {
+                              ref
+                                  .read(savedRecipeProvider.notifier)
+                                  .add(widget.foodModel);
+
+                            }
                           });
                         },
                         child: Container(

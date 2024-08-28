@@ -39,4 +39,9 @@ class FoodModel {
       title: recipe.title,
       image: recipe.image,
       imageType: recipe.imageType);
+
+  @override
+  String toString() {
+    return 'food-model: $title';
+  }
 }

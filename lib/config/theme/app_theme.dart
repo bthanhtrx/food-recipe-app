@@ -5,6 +5,15 @@ class AppTheme {
     scaffoldBackgroundColor: Colors.black54,
     bottomNavigationBarTheme:
         BottomNavigationBarThemeData(backgroundColor: Colors.black87),
+    textTheme: TextTheme(
+      titleSmall: TextStyle(fontSize: 14, color: Colors.white70,),
+      titleMedium: TextStyle(color: Colors.white70,fontSize: 16),
+      titleLarge: TextStyle(
+        fontSize: 22,
+        color: Colors.white70,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
   );
 
   static final lightThemeMode = ThemeData.light().copyWith(

@@ -35,42 +35,83 @@
 // /// spoonacularScore : 98.8354721069336
 // /// spoonacularSourceUrl : "https://spoonacular.com/slow-cooker-beef-stew-715446"
 //
+import 'package:hive/hive.dart';
+
+part 'recipe_model.g.dart';
+
+@HiveType(typeId: 1)
 class RecipeModel {
+  @HiveField(0)
   final bool vegetarian;
+  @HiveField(1)
   final bool vegan;
+  @HiveField(2)
   final bool glutenFree;
+  @HiveField(3)
   final bool dairyFree;
+  @HiveField(4)
   final bool veryHealthy;
+  @HiveField(5)
   final bool cheap;
+  @HiveField(6)
   final bool veryPopular;
+  @HiveField(7)
   final bool sustainable;
+  @HiveField(8)
   final bool lowFodmap;
+  @HiveField(9)
   final num weightWatcherSmartPoints;
+  @HiveField(10)
   final String gaps;
+  @HiveField(11)
   final num? preparationMinutes;
+  @HiveField(12)
   final num? cookingMinutes;
+  @HiveField(13)
   final num aggregateLikes;
+  @HiveField(14)
   final num healthScore;
+  @HiveField(15)
   final String creditsText;
+  @HiveField(16)
   final String sourceName;
+  @HiveField(17)
   final num pricePerServing;
+  @HiveField(18)
   final List<ExtendedIngredients> extendedIngredients;
+  @HiveField(19)
   final num id;
+  @HiveField(20)
   final String title;
+  @HiveField(21)
   final num readyInMinutes;
+  @HiveField(22)
   final num servings;
+  @HiveField(23)
   final String sourceUrl;
+  @HiveField(24)
   final String image;
+  @HiveField(25)
   final String imageType;
+  @HiveField(26)
   final String summary;
+  @HiveField(27)
   final List<String> cuisines;
+  @HiveField(28)
   final List<String> dishTypes;
+  @HiveField(29)
   final List<String> diets;
+  @HiveField(30)
   final List<String> occasions;
+  @HiveField(31)
   final String instructions;
+  @HiveField(32)
   final List<AnalyzedInstructions> analyzedInstructions;
+  @HiveField(33)
   final int originalId;
+  @HiveField(34)
   final num spoonacularScore;
+  @HiveField(35)
   final String spoonacularSourceUrl;
 
   RecipeModel({
@@ -162,9 +203,11 @@ class RecipeModel {
 
 /// name : ""
 /// steps : [{"number":1,"step":"To get started, heat your slow cooker to low.","ingredients":[],"equipment":[{"id":404718,"name":"slow cooker","localizedName":"slow cooker","image":"https://spoonacular.com/cdn/equipment_100x100/slow-cooker.jpg"}]},{"number":2,"step":"Pour in the cream of mushroom soup, Dale's seasoning, water, and beef broth and stir until mixed well.","ingredients":[{"id":6147,"name":"cream of mushroom soup","localizedName":"cream of mushroom soup","image":"https://spoonacular.com/cdn/ingredients_100x100/cream-of-mushroom-soup.png"},{"id":6008,"name":"beef broth","localizedName":"beef broth","image":"https://spoonacular.com/cdn/ingredients_100x100/beef-broth.png"},{"id":1042027,"name":"seasoning","localizedName":"seasoning","image":"https://spoonacular.com/cdn/ingredients_100x100/seasoning.png"},{"id":14412,"name":"water","localizedName":"water","image":"https://spoonacular.com/cdn/ingredients_100x100/water.png"}],"equipment":[]},{"number":3,"step":"Add in your stew meat, potatoes, onions, carrots, celery, and green onions. Stir well until covered and cook on low for 8 hours. You can add salt and pepper as desired, but the flavors and the Dale's marry together so well that you probably won’t need them.","ingredients":[{"id":1102047,"name":"salt and pepper","localizedName":"salt and pepper","image":"https://spoonacular.com/cdn/ingredients_100x100/salt-and-pepper.jpg"},{"id":11291,"name":"green onions","localizedName":"green onions","image":"https://spoonacular.com/cdn/ingredients_100x100/spring-onions.jpg"},{"id":10023618,"name":"beef stew meat","localizedName":"beef stew meat","image":"https://spoonacular.com/cdn/ingredients_100x100/beef-cubes-raw.png"},{"id":11352,"name":"potato","localizedName":"potato","image":"https://spoonacular.com/cdn/ingredients_100x100/potatoes-yukon-gold.png"},{"id":11124,"name":"carrot","localizedName":"carrot","image":"https://spoonacular.com/cdn/ingredients_100x100/sliced-carrot.png"},{"id":11143,"name":"celery","localizedName":"celery","image":"https://spoonacular.com/cdn/ingredients_100x100/celery.jpg"},{"id":11282,"name":"onion","localizedName":"onion","image":"https://spoonacular.com/cdn/ingredients_100x100/brown-onion.png"}],"equipment":[],"length":{"number":480,"unit":"minutes"}}]
-
+@HiveType(typeId: 2)
 class AnalyzedInstructions {
+  @HiveField(0)
   final String name;
+  @HiveField(1)
   final List<Steps> steps;
 
   AnalyzedInstructions({
@@ -184,11 +227,15 @@ class AnalyzedInstructions {
 /// step : "To get started, heat your slow cooker to low."
 /// ingredients : []
 /// equipment : [{"id":404718,"name":"slow cooker","localizedName":"slow cooker","image":"https://spoonacular.com/cdn/equipment_100x100/slow-cooker.jpg"}]
-
+@HiveType(typeId: 3)
 class Steps {
+  @HiveField(0)
   final int number;
+  @HiveField(1)
   final String step;
+  @HiveField(2)
   final List<EquipmentIngredientItem> ingredients;
+  @HiveField(3)
   final List<EquipmentIngredientItem> equipment;
 
   Steps({
@@ -218,11 +265,15 @@ class Steps {
 /// name : "slow cooker"
 /// localizedName : "slow cooker"
 /// image : "https://spoonacular.com/cdn/equipment_100x100/slow-cooker.jpg"
-
+@HiveType(typeId: 4)
 class EquipmentIngredientItem {
+  @HiveField(0)
   final num id;
+  @HiveField(1)
   final String name;
+  @HiveField(2)
   final String localizedName;
+  @HiveField(3)
   final String image;
 
   EquipmentIngredientItem({
@@ -253,18 +304,31 @@ class EquipmentIngredientItem {
 /// meta : ["canned"]
 /// measures : {"us":{"amount":14.5,"unitShort":"oz","unitLong":"ounces"},"metric":{"amount":411.068,"unitShort":"g","unitLong":"grams"}}
 
+@HiveType(typeId: 5)
 class ExtendedIngredients {
+  @HiveField(0)
   final num id;
+  @HiveField(1)
   final String? aisle;
+  @HiveField(2)
   final String? image;
+  @HiveField(3)
   final String? consistency;
+  @HiveField(4)
   final String? name;
+  @HiveField(5)
   final String? nameClean;
+  @HiveField(6)
   final String original;
+  @HiveField(7)
   final String? originalName;
+  @HiveField(8)
   final num? amount;
+  @HiveField(9)
   final String? unit;
+  @HiveField(10)
   final List<String>? meta;
+  @HiveField(11)
   final Measures? measures;
 
   ExtendedIngredients({
@@ -302,8 +366,11 @@ class ExtendedIngredients {
 /// us : {"amount":14.5,"unitShort":"oz","unitLong":"ounces"}
 /// metric : {"amount":411.068,"unitShort":"g","unitLong":"grams"}
 
+@HiveType(typeId: 6)
 class Measures {
+  @HiveField(0)
   final Us us;
+  @HiveField(1)
   final Metric metric;
 
   Measures({
@@ -319,9 +386,13 @@ class Measures {
 /// unitShort : "g"
 /// unitLong : "grams"
 
+@HiveType(typeId: 7)
 class Metric {
+  @HiveField(0)
   final num amount;
+  @HiveField(1)
   final String unitShort;
+  @HiveField(2)
   final String unitLong;
 
   Metric({
@@ -340,9 +411,13 @@ class Metric {
 /// unitShort : "oz"
 /// unitLong : "ounces"
 
+@HiveType(typeId: 8)
 class Us {
+  @HiveField(0)
   final num amount;
+  @HiveField(1)
   final String unitShort;
+  @HiveField(2)
   final String unitLong;
 
   Us({

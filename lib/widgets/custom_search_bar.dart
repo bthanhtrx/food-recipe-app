@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:food_recipe_app/pages/search_result_screen.dart';
 
 class CustomSearchBar extends StatelessWidget {
-  final TextEditingController _controller = TextEditingController();
+  final String hintText;
+  final TextEditingController controller;
+  final Function? onChanged;
 
-  CustomSearchBar({super.key});
+  CustomSearchBar({super.key, required this.hintText, required this.controller, this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +32,15 @@ class CustomSearchBar extends StatelessWidget {
           const SizedBox(width: 10),
           Expanded(
             child: TextField(style: TextStyle(fontSize: 14, color:Colors.black87),
-              controller: _controller,
-              decoration: const InputDecoration(
-                hintText: "Search any recipes",
+              controller: controller,
+              onChanged: (value) => onChanged!(controller.text.trim()),
+              decoration: InputDecoration(
+                hintText: hintText,
                 border: InputBorder.none,
+                suffixIcon: IconButton(onPressed: (){
+                  onChanged!('');
+                  controller.clear();
+                }, icon: Icon(Icons.cancel_outlined),)
               ),
               onSubmitted: (value) {
                 if(value.trim().isNotEmpty) {

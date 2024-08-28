@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:food_recipe_app/api/api_service.dart';
+import 'package:food_recipe_app/api/recipe_params.dart';
 import 'package:food_recipe_app/core/error/exception.dart';
 import 'package:food_recipe_app/model/food_model.dart';
 import 'package:food_recipe_app/model/recipe_model.dart';
@@ -13,14 +14,14 @@ final recipeProvider = FutureProvider.family<RecipeModel, int>((ref, id) {
 });
 
 final foodProvider = FutureProvider.autoDispose
-    .family<List<FoodModel>, Map<String, dynamic>>((ref, query) {
+    .family<List<FoodModel>, RecipeParams>((ref, params) {
   try {
     return ref.read(apiProvider).getListFood(
-          query: query['query'] ?? '',
-          cuisine: query['cuisine'] ?? '',
-          diet: query['diet'] ?? '',
-          intolerances: query['intolerances'] ?? '',
-          maxServings: query['servings'] ?? 1,
+          query: params.query,
+          cuisine: params.cuisine,
+          diet: params.diet,
+          intolerances: params.intolerances,
+          maxServings: params.servings,
         );
   } catch (e) {
     throw NetworkException(e.toString());

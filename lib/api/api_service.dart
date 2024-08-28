@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:food_recipe_app/core/error/exception.dart';
 import 'package:food_recipe_app/model/food_model.dart';
 import 'package:food_recipe_app/model/recipe_model.dart';
 import 'package:food_recipe_app/core/secrets/api_key.dart';
