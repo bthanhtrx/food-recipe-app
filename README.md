@@ -18,7 +18,7 @@ A Flutter app showing meal recipe and recommend healthy food using Spoonacular A
     
 
 ## Getting Started
-    0. First get your Spoonacular API key [here](https://spoonacular.com/food-api/).
+    0. First get your Spoonacular API key at https://spoonacular.com/food-api/.
     1. Clone the repository.
     2. Navigate to the project directory.
     3. Run flutter pub get to fetch the dependencies.
