@@ -2,7 +2,10 @@
 
 A Flutter app showing meal recipe and recommend healthy food using Spoonacular API.
 
-Features: Riverpod state management, Hive for local storage and Firebase Authentication.
+## Features: 
+    - Riverpod state management.
+    - Hive for local storage.
+    - Firebase Authentication.
  
 <p align='left'>
   <img src='ss_2.png' width=200 />
